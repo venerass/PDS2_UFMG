@@ -25,7 +25,9 @@ class Stack {
     
     // Retorna o número de elementos na pilha.
     unsigned count() const;
+  
   private:
+
     Node* _top;
     unsigned _count;
 };
