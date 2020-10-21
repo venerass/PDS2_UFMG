@@ -29,9 +29,6 @@ void Stack::pop() {
   if(_count == 0){
     throw EmptyException();
   } else{
-    // Node node = new Node;
-    // node.next = _top->next;
-    // node.elem = _top->elem;
     _top = _top->next;
     _count--;
   }
