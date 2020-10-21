@@ -20,6 +20,11 @@ run:
 	@echo "🚀 Executing..."
 	./$(BIN)/$(TARGET)
 
+gdb:
+	clear
+	@echo "🚀 Running GDB..."
+	gdb ./$(BIN)/$(TARGET)
+
 clean:
 	@echo "🧹 Clearing..."
 	-rm $(BIN)/*
