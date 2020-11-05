@@ -52,11 +52,11 @@ class Complexo {
   Complexo operator/(Complexo y) const;
 
  private:
-  // Parte real;
-  double real_;
+  // Raio;
+  double raio;
 
-  // Parte imaginária.
-  double imag_;
+  // Teta em rad
+  double teta;
 
   friend class Teste;
 };
