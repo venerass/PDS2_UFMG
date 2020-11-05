@@ -4,60 +4,63 @@
 
 #include <cmath>
 
+#define precisao 1E-6
+
 Complexo::Complexo() {
-  real_ = 0.0;
-  imag_ = 0.0;
+  raio = 0.0;
+  teta = 0.0;
 }
 
 Complexo::Complexo(double a) {
-  real_ = a;
-  imag_ = 0.0;
+  raio = a;
+  teta = 0.0;
 }
 
 Complexo::Complexo(double a, double b) {
-  real_ = a;
-  imag_ = b;
+  raio = pow((a*a + b*b),0.5);
+  teta = atan2(b,a);
 }
 
 double Complexo::real() const {
-  return real_;
+  return raio * cos(teta);
 }
 
 double Complexo::imag() const {
-  return imag_;
+  return raio * sin(teta);
 }
 
 bool Complexo::operator==(Complexo x) const {
-  return real_ == x.real_ && imag_ == x.imag_;
+  // return (raio * cos(teta)) == (x.raio * cos(x.teta)) && (raio * sin(teta)) == (x.raio * sin(x.teta));
+  return (fabs((raio * cos(teta) - (x.raio * cos(x.teta))) <= 1E-6)&&(fabs((raio * sin(teta)) - (x.raio * sin(x.teta))) <= 1E-6)); 
 }
 
 void Complexo::operator=(Complexo x) {
-  real_ = x.real_;
-  imag_ = x.imag_;
+  raio = x.raio;
+  teta = x.teta;
 }
 
 double Complexo::modulo() const {
-  return sqrt(real_*real_ + imag_*imag_);
+  return raio;
 }
 
 Complexo Complexo::conjugado() const {
-  Complexo c(real_, -imag_);
+  Complexo c(raio*cos(teta), -(raio*sin(teta)));
   return c;
 }
 
 Complexo Complexo::operator-() const {
-  Complexo c(-real_, -imag_);
+  Complexo c(-(raio*cos(teta)), -(raio*sin(teta)));
   return c;
 }
 
 Complexo Complexo::inverso() const {
-  double divisor = real_*real_ + imag_*imag_;
-  Complexo i(real_ / divisor, -imag_ / divisor);
+  double divisor = pow(raio*cos(teta),2) + pow(raio*sin(teta),2);
+  Complexo i((raio*cos(teta)) / divisor, -(raio*sin(teta)) / divisor);
   return i;
 }
 
 Complexo Complexo::operator+(Complexo y) const {
-  Complexo s(real_ + y.real_, (imag_ + y.imag_));
+  Complexo s((raio * cos(teta)) + (y.raio * cos(y.teta)), ((raio*sin(teta)) + (y.raio * sin(y.teta))));
   return s;
 }
 
@@ -66,7 +69,7 @@ Complexo Complexo::operator-(Complexo y) const {
 }
 
 Complexo Complexo::operator*(Complexo y) const {
-  Complexo p(real_ * y.real_ - imag_ * y.imag_, real_ * y.imag_ + imag_ * y.real_);
+  Complexo p((raio*cos(teta)) * (y.raio * cos(y.teta)) - (raio*sin(teta)) * (y.raio * sin(y.teta)), (raio * cos(teta)) * (y.raio * sin(y.teta)) + (raio*sin(teta)) * (y.raio*cos(y.teta)));
   return p;
 }
 
