@@ -29,6 +29,15 @@ gdb:
 	@echo "🚀 Running GDB..."
 	gdb ./$(BIN)/$(TARGET)
 
+dir:
+  @mkdir 'bin'
+  @touch bin/.gitignore
+  @mkdir 'src'
+  @mkdir 'include'
+  @touch .gitignore ; echo "*.out\n/build\n.vscode" > .gitignore
+  @mv main.cpp src/
+  @echo "Basic directory structure created"
+
 clean:
 	@echo "🧹 Clearing..."
 	-rm $(BIN)/*
